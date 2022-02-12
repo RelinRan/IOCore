@@ -23,7 +23,7 @@ allprojects {
 2./app/build.grade
 ```
 dependencies {
-	implementation 'com.github.RelinRan:IOCore:2022.2.12.1'
+	implementation 'com.github.RelinRan:IOCore:2022.2.13.1'
 }
 ```
 # 初始化
