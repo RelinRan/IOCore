@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/item_view"
+    android:layout_width="match_parent"
+    android:layout_height="60dp">
+
+    <FrameLayout
+        android:id="@+id/icon_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp">
+
+        <FrameLayout
+            android:id="@+id/card_icon_group"
+            android:layout_width="45dp"
+            android:layout_height="45dp">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:cardElevation="0dp"
+                app:cardCornerRadius="5dp">
+
+                <ImageView
+                    android:id="@+id/iv_card_icon"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/io_core_document_theme"
+                    android:adjustViewBounds="true" />
+
+            </androidx.cardview.widget.CardView>
+
+        </FrameLayout>
+
+        <ImageView
+            android:id="@+id/iv_tag"
+            android:layout_width="10dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:adjustViewBounds="true"
+            android:src="@mipmap/io_core_video_tag" />
+
+        <TextView
+            android:id="@+id/tv_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="3dp"
+            android:text="00:00"
+            android:textColor="#B8B8B8"
+            android:textSize="10dp" />
+    </FrameLayout>
+
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/icon_group"
+        android:layout_gravity="right"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/icon_group"
+        android:ellipsize="middle"
+        android:gravity="top"
+        android:maxWidth="220dp"
+        android:singleLine="true"
+        android:text="name"
+        android:textColor="@color/io_core_document_text"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tv_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tv_name"
+        android:layout_alignBottom="@+id/icon_group"
+        android:layout_gravity="right"
+        android:gravity="bottom"
+        android:text="desc"
+        android:textColor="@color/io_core_document_text"
+        android:textSize="14dp" />
+
+    <LinearLayout
+        android:id="@+id/check_group"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="20dp"
+            android:layout_marginRight="15dp"
+            android:background="@color/io_core_document_text" />
+
+        <ImageView
+            android:id="@+id/iv_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:src="@mipmap/io_core_item_check" />
+
+    </LinearLayout>
+
+</RelativeLayout>

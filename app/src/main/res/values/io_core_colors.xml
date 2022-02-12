@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="io_core_document_theme">#2B2B2B</color>
+    <color name="io_core_document_text">#B8B8B8</color>
+    <color name="io_core_document_button">#3C3F41</color>
+</resources>

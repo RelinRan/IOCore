@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="circleBackgroundColor" format="color" />
+    <attr name="circleProgressColor" format="color" />
+    <attr name="circleStrokeWidth" format="dimension" />
+    <attr name="circleTextVisibility" format="enum">
+        <enum name="visible" value="0" />
+        <enum name="invisible" value="1" />
+        <enum name="gone" value="2" />
+    </attr>
+
+    <declare-styleable name="CircleProgress">
+        <attr name="android:progress" />
+        <attr name="android:max" />
+        <attr name="android:textColor" />
+        <attr name="android:textSize" />
+        <attr name="circleBackgroundColor" />
+        <attr name="circleTextVisibility" />
+        <attr name="circleProgressColor" />
+        <attr name="circleStrokeWidth" />
+    </declare-styleable>
+
+</resources>
