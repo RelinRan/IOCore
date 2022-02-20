@@ -10,6 +10,7 @@ Android文件操作工具，此工具采用沙盒安全模式，不要设置传�
 6.数据(DataStore - SharedPreferences)
 7.内含三方PhotoView
 8.自定义进度圆圈CircleProgress控件
+9.本地异常记录
 # Maven
 1.build.grade
 ```
@@ -23,7 +24,7 @@ allprojects {
 2./app/build.grade
 ```
 dependencies {
-	implementation 'com.github.RelinRan:IOCore:2022.2.13.1'
+	implementation 'com.github.RelinRan:IOCore:2022.2.20.1'
 }
 ```
 # 初始化
@@ -421,6 +422,18 @@ File file = IOProvider.decodeBytes(byte[] bytes, String path);
 例子：getResId("icon", R.drawable.class);
 ```
 int resId = IOProvider.findResId(String variableName, Class<?> cls);
+```
+# Bug
+异常捕捉。注意：使用这个类需要提前申请文件写入、读取权限，在Android 6.0需要动态申请权限。
+```
+Bug.Builder builder = new Bug.Builder(this);
+builder.listener(new OnBugListener() {
+    @Override
+    public void onBug(File file, String bug) {
+
+    }
+});
+builder.build();
 ```
 # 圆圈进度
 ## 布局
