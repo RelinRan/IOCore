@@ -11,6 +11,7 @@ Android文件操作工具，此工具采用沙盒安全模式，不要设置传�
 7.内含三方PhotoView
 8.自定义进度圆圈CircleProgress控件
 9.本地异常记录
+# [IOCore.arr](https://github.com/RelinRan/IOCore/blob/master/IOCore.aar)
 # Maven
 1.build.grade
 ```
