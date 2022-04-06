@@ -2,6 +2,9 @@ package androidx.io.core.core;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.util.Log;
 
 import java.util.Set;
 
@@ -11,6 +14,7 @@ import java.util.Set;
 public class DataStore {
 
     private static final String SHARE_PREFERENCE_NAME = "_SP_DATA";
+
     /**
      * 数据存储构造函数
      */
@@ -28,7 +32,26 @@ public class DataStore {
             return null;
         }
         String PACKAGE_NAME = context.getApplicationContext().getPackageName().replace(".", "_").toUpperCase();
-        return context.getSharedPreferences(PACKAGE_NAME + SHARE_PREFERENCE_NAME, Context.MODE_PRIVATE);
+        String name = PACKAGE_NAME + getVersionCode(context) + SHARE_PREFERENCE_NAME;
+        return context.getSharedPreferences(name, Context.MODE_PRIVATE);
+    }
+
+    /**
+     * 获取版本
+     *
+     * @param context 上下文对象
+     * @return
+     */
+    private static int getVersionCode(Context context) {
+        int versionCode = 1;
+        try {
+            PackageManager pm = context.getPackageManager();
+            PackageInfo pi = pm.getPackageInfo(context.getPackageName(), 0);
+            versionCode = pi.versionCode;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return versionCode;
     }
 
     /**
