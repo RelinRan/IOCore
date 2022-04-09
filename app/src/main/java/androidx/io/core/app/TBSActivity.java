@@ -174,6 +174,7 @@ public class TBSActivity extends AppCompatActivity implements TbsReaderView.Read
         String mimeType = IOProvider.getMimeType(url);
         if (mimeType.startsWith("video")) {
             TbsVideo.openVideo(this, url);
+            finish();
             return;
         }
         progressView.setVisibility(View.VISIBLE);
