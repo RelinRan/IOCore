@@ -323,6 +323,34 @@ public class ImageProvider {
      * @param bitmap 位图
      * @param format 格式
      * @param max    限制大小,压缩到<=max,单位KB
+     * @param unit   每次压缩大小，1 = 10%
+     * @return
+     */
+    public static ByteArrayOutputStream compress(Bitmap bitmap, Bitmap.CompressFormat format, long max, int unit) {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        bitmap.compress(format, 100, bos);
+        int options = 100;
+        long length = bos.toByteArray().length;
+        long time = System.currentTimeMillis();
+        Log.i(TAG, "compress format: " + format + ",max: " + max + "kb");
+        Log.i(TAG, "compress before length : " + (length / 1024) + "kb");
+        while (max > 0 && bos.toByteArray().length > max) {
+            bos.reset();
+            options -= unit;
+            bitmap.compress(format, options, bos);
+        }
+        length = bos.toByteArray().length;
+        time = System.currentTimeMillis() - time;
+        Log.i(TAG, "compress after length : " + (length / 1024) + "kb" + ",time : " + time + "ms");
+        return bos;
+    }
+
+    /**
+     * Bitmap压缩为ByteArrayOutputStream
+     *
+     * @param bitmap 位图
+     * @param format 格式
+     * @param max    限制大小,压缩到<=max,单位KB
      * @return
      */
     public static ByteArrayOutputStream compress(Bitmap bitmap, Bitmap.CompressFormat format, long max) {
@@ -354,6 +382,21 @@ public class ImageProvider {
      */
     public static Bitmap compress(Bitmap bitmap, long max, Bitmap.CompressFormat format) {
         ByteArrayOutputStream bos = compress(bitmap, format, max);
+        byte[] bytes = bos.toByteArray();
+        return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+    }
+
+    /**
+     * 压缩图片
+     *
+     * @param bitmap 位图
+     * @param max    限制大小,压缩到< = max,单位KB
+     * @param format 格式
+     * @param unit   每次压缩大小，1 = 10%
+     * @return
+     */
+    public static Bitmap compress(Bitmap bitmap, long max, int unit, Bitmap.CompressFormat format) {
+        ByteArrayOutputStream bos = compress(bitmap, format, max, unit);
         byte[] bytes = bos.toByteArray();
         return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
     }
@@ -397,6 +440,43 @@ public class ImageProvider {
     /**
      * 压缩图片
      *
+     * @param bitmap  图片位图
+     * @param format  图片路径
+     * @param max     限制大小,压缩到<=max,单位KB
+     * @param outPath 输出文件路径
+     * @param unit    每次压缩大小，1 = 10%
+     * @return
+     */
+    public static File compress(Bitmap bitmap, Bitmap.CompressFormat format, long max, int unit, String outPath) {
+        ByteArrayOutputStream bos = compress(bitmap, format, max, unit);
+        BufferedOutputStream out = null;
+        File file = new File(outPath);
+        if (file.exists()) {
+            file.delete();
+        }
+        try {
+            out = new BufferedOutputStream(new FileOutputStream(file));
+            out.write(bos.toByteArray());
+            out.flush();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (out != null) {
+                try {
+                    out.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return file;
+    }
+
+    /**
+     * 压缩图片
+     *
      * @param bitmap 位图
      * @param width  目标宽度
      * @param height 目标高度
@@ -408,6 +488,23 @@ public class ImageProvider {
         byte[] data = toByteArray(bitmap);
         Bitmap inSampleBitmap = decodeByteArray(data, 0, data.length, width, height);
         return compress(inSampleBitmap, max, format);
+    }
+
+    /**
+     * 压缩图片
+     *
+     * @param bitmap 位图
+     * @param width  目标宽度
+     * @param height 目标高度
+     * @param format 图片格式
+     * @param max    最大
+     * @param unit   每次压缩大小，1 = 10%
+     * @return
+     */
+    public static Bitmap compress(Bitmap bitmap, int width, int height, Bitmap.CompressFormat format, long max, int unit) {
+        byte[] data = toByteArray(bitmap);
+        Bitmap inSampleBitmap = decodeByteArray(data, 0, data.length, width, height);
+        return compress(inSampleBitmap, max, unit, format);
     }
 
     /**
