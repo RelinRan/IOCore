@@ -1,16 +1,16 @@
 # IOCore
-Android文件操作工具，此工具采用沙盒安全模式，不要设置传统存储模式。
-在Android11以后强制采用沙河模式，不再支持传统存储模式，采用java编写，
-因为考虑kotlin和java语言都能调用，kotlin工具只能kotlin项目能用。
-1.内含腾讯Bugly、TBS、ISOParser
-2.系统+自定义相机拍照、录像
-3.系统+自定义媒体文件选择，音频文件专辑图片兼容高版本。
-4.文件打开预览
-5.文件下载
-6.数据(DataStore - SharedPreferences)
-7.内含三方PhotoView
-8.自定义进度圆圈CircleProgress控件
-9.本地异常记录
+Android文件操作工具，此工具采用沙盒安全模式，不要设置传统存储模式。  
+在Android11以后强制采用沙河模式，不再支持传统存储模式，采用java编写，  
+因为考虑kotlin和java语言都能调用，kotlin工具只能kotlin项目能用。  
+1.内含腾讯Bugly、TBS、ISOParser  
+2.系统+自定义相机拍照、录像  
+3.系统+自定义媒体文件选择，音频文件专辑图片兼容高版本。  
+4.文件打开预览  
+5.文件下载  
+6.数据(DataStore - SharedPreferences)  
+7.内含三方PhotoView  
+8.自定义进度圆圈CircleProgress控件  
+9.本地异常记录  
 # [iocore_2022.4.27.1.aar](https://github.com/RelinRan/IOCore/blob/master/iocore_2022.4.27.1.aar)
 # Maven
 1.build.grade
