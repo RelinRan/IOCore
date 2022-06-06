@@ -3,4 +3,6 @@
     <color name="io_core_document_theme">#2B2B2B</color>
     <color name="io_core_document_text">#B8B8B8</color>
     <color name="io_core_document_button">#3C3F41</color>
+    <color name="io_core_circle_progress_color">#62D4E1</color>
+    <color name="io_core_circle_progress_text_color">#62D4E1</color>
 </resources>

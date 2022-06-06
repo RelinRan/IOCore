@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@android:color/black"
     android:fitsSystemWindows="true">
 
@@ -19,6 +20,8 @@
         android:id="@+id/tbs_progress"
         android:layout_width="65dp"
         android:layout_height="65dp"
+        app:circleStrokeWidth="2dp"
+        android:progress="0"
         android:visibility="gone"
         android:layout_gravity="center" />
 

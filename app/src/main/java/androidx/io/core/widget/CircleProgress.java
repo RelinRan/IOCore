@@ -49,8 +49,10 @@ public class CircleProgress extends View {
     private void initAttributeSet(Context context, AttributeSet attrs) {
         if (attrs != null) {
             TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.CircleProgress);
+            progressColor = context.getResources().getColor(R.color.io_core_circle_progress_color);
             progressColor = array.getColor(R.styleable.CircleProgress_circleProgressColor, progressColor);
             backgroundColor = array.getColor(R.styleable.CircleProgress_circleBackgroundColor, backgroundColor);
+            textColor = context.getResources().getColor(R.color.io_core_circle_progress_text_color);
             textColor = array.getColor(R.styleable.CircleProgress_android_textColor, textColor);
             textSize = array.getDimensionPixelSize(R.styleable.CircleProgress_android_textSize, textSize);
             strokeWidth = array.getDimension(R.styleable.CircleProgress_circleStrokeWidth, strokeWidth);
