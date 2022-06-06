@@ -18,11 +18,11 @@
 
     <androidx.io.core.widget.CircleProgress
         android:id="@+id/tbs_progress"
-        android:layout_width="65dp"
-        android:layout_height="65dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         app:circleStrokeWidth="2dp"
         android:progress="0"
-        android:visibility="gone"
+        android:visibility="visible"
         android:layout_gravity="center" />
 
 </FrameLayout>
