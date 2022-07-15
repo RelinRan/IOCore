@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@android:color/black"
     android:fitsSystemWindows="true">
 
@@ -15,6 +16,21 @@
         android:id="@+id/image_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <TextView
+        android:id="@+id/tv_index"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        tools:text="1/10"
+        android:textColor="@android:color/white"/>
 
     <androidx.io.core.widget.CircleProgress
         android:id="@+id/tbs_progress"

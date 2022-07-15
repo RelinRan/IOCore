@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 
+import androidx.io.core.adapter.TBSlmageLoader;
+
 import com.tencent.bugly.crashreport.CrashReport;
 import com.tencent.smtt.export.external.TbsCoreSettings;
 import com.tencent.smtt.sdk.QbSdk;
@@ -21,6 +23,7 @@ public class TBS implements QbSdk.PreInitCallback {
 
     public final static String TAG = TBS.class.getSimpleName();
     private static TBS instance;
+    private TBSlmageLoader imageLoader;
 
     private TBS(Context context, String appId) {
         initSettings(null);
@@ -63,6 +66,22 @@ public class TBS implements QbSdk.PreInitCallback {
             QbSdk.initX5Environment(context, new TBS(context, appId));
         }
         return instance;
+    }
+
+    public static TBS getInstance() {
+        return instance;
+    }
+
+    /**
+     *
+     * @param imageLoader
+     */
+    public void imageLoader(TBSlmageLoader imageLoader) {
+        this.imageLoader = imageLoader;
+    }
+
+    public TBSlmageLoader getImageLoader() {
+        return imageLoader;
     }
 
     @Override

@@ -13,39 +13,53 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import androidx.io.core.R;
+import androidx.io.core.adapter.TBSAdapter;
 import androidx.io.core.core.IOProvider;
 import androidx.io.core.core.TBS;
 import androidx.io.core.core.UriProvider;
 import androidx.io.core.net.Downloader;
+import androidx.io.core.net.JSON;
 import androidx.io.core.net.OnDownloadListener;
 import androidx.io.core.photo.PhotoView;
 import androidx.io.core.widget.CircleProgress;
+import androidx.viewpager.widget.ViewPager;
+
 import com.tencent.smtt.sdk.TbsReaderView;
 import com.tencent.smtt.sdk.TbsVideo;
 
+import org.json.JSONArray;
+
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 腾讯TBS文件预览<br/>
  * 官网SDK: https://x5.tencent.com/tbs/index.html<br/>
  * 支持格式：doc、docx、ppt、pptx、xls、xlsx、pdf、txt、epub<br/>
  */
-public class TBSActivity extends AppCompatActivity implements TbsReaderView.ReaderCallback, OnDownloadListener {
+public class TBSActivity extends AppCompatActivity implements TbsReaderView.ReaderCallback, OnDownloadListener, ViewPager.OnPageChangeListener {
 
     private String TAG = TBSActivity.class.getSimpleName();
     private RelativeLayout tbs_container;
     private PhotoView image_view;
     private TbsReaderView readerView;
+    private ViewPager viewPager;
     private CircleProgress progressView;
+    private TextView tvIndex;
     private String path;
     private String url;
     private boolean override;
+    private TBSAdapter adapter;
+    private List<String> urls;
+    private int position;
 
     /**
      * 打开文件预览
@@ -88,6 +102,20 @@ public class TBSActivity extends AppCompatActivity implements TbsReaderView.Read
     /**
      * 打开文件预览
      *
+     * @param activity 页面
+     * @param urls     文件集合
+     * @param position 位置
+     */
+    public static void start(Activity activity, List<String> urls, int position) {
+        Intent intent = new Intent(activity, TBSActivity.class);
+        intent.putExtra("json", JSON.toJson(urls));
+        intent.putExtra("position", position);
+        activity.startActivity(intent);
+    }
+
+    /**
+     * 打开文件预览
+     *
      * @param fragment 页面
      * @param url      网络文件
      * @param override 覆盖文件
@@ -96,6 +124,20 @@ public class TBSActivity extends AppCompatActivity implements TbsReaderView.Read
         Intent intent = new Intent(fragment.getContext(), TBSActivity.class);
         intent.putExtra("url", url);
         intent.putExtra("override", override);
+        fragment.startActivity(intent);
+    }
+
+    /**
+     * 打开文件预览
+     *
+     * @param fragment 页面
+     * @param urls     文件集合
+     * @param position 位置
+     */
+    public static void start(Fragment fragment, List<String> urls, int position) {
+        Intent intent = new Intent(fragment.getContext(), TBSActivity.class);
+        intent.putExtra("json", JSON.toJson(urls));
+        intent.putExtra("position", position);
         fragment.startActivity(intent);
     }
 
@@ -109,16 +151,62 @@ public class TBSActivity extends AppCompatActivity implements TbsReaderView.Read
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         image_view = findViewById(R.id.image_view);
         tbs_container = findViewById(R.id.tbs_container);
+        viewPager = findViewById(R.id.view_pager);
+        tvIndex = findViewById(R.id.tv_index);
         progressView = findViewById(R.id.tbs_progress);
         readerView = new TbsReaderView(this, this);
         int MATCH_PARENT = ViewGroup.LayoutParams.MATCH_PARENT;
+        progressView.setVisibility(View.GONE);
         tbs_container.addView(readerView, new RelativeLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT));
+        position = getIntent().getIntExtra("position", 0);
+        String json = getIntent().getStringExtra("json");
+        if (json != null) {
+            urls = JSON.toCollection(json,String.class);
+            viewPager.setVisibility(View.VISIBLE);
+            tvIndex.setVisibility(View.VISIBLE);
+            initImageAdapter();
+            int size = urls == null ? 0 : urls.size();
+        } else {
+            viewPager.setVisibility(View.GONE);
+            tvIndex.setVisibility(View.GONE);
+        }
         override = getIntent().getBooleanExtra("override", true);
         path = getIntent().getStringExtra("filePath");
         openFile(this, path);
         url = getIntent().getStringExtra("url");
         download(url);
         Log.i(TAG, "onCreate path: " + path + ",url: " + url);
+    }
+
+    /**
+     * 初始化图片
+     */
+    private void initImageAdapter() {
+        if (TBS.getInstance() == null) {
+            return;
+        }
+        adapter = new TBSAdapter(this);
+        adapter.setImageLoader(TBS.getInstance().getImageLoader());
+        viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(this);
+        adapter.setItems(urls);
+        viewPager.setCurrentItem(position);
+        tvIndex.setText((position + 1) + "/" + adapter.getCount());
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        tvIndex.setText((position + 1) + "/" + adapter.getCount());
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
     }
 
     /**
@@ -161,6 +249,7 @@ public class TBSActivity extends AppCompatActivity implements TbsReaderView.Read
         startActivity(intent);
         finish();
     }
+
 
     /**
      * 下载文件
@@ -213,5 +302,6 @@ public class TBSActivity extends AppCompatActivity implements TbsReaderView.Read
         super.onStop();
         readerView.onStop();
     }
+
 
 }
