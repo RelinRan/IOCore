@@ -15,8 +15,8 @@ Android文件操作工具，此工具采用沙盒安全模式，不要设置传�
 |名字|资源|
 |-|-|
 |AAR|[iocore_2022.7.18.1.aar](https://github.com/RelinRan/IOCore/blob/master/iocore_2022.7.18.1.aar)|
-|Gitee|[IOCore](https://gitee.com/relin/IOCore)|
 |GitHub |[IOCore](https://github.com/RelinRan/IOCore)|
+|Gitee|[IOCore](https://gitee.com/relin/IOCore)|
 # Maven
 1.build.grade
 ```
