@@ -5,13 +5,13 @@ Android文件操作工具，此工具采用沙盒安全模式，不要设置传�
 1.内含腾讯Bugly、TBS、ISOParser  
 2.系统+自定义相机拍照、录像  
 3.系统+自定义媒体文件选择，音频文件专辑图片兼容高版本。  
-4.文件打开预览  
+4.文件打开预览(支持图片集合)  
 5.文件下载  
 6.数据(DataStore - SharedPreferences)  
 7.内含三方PhotoView  
 8.自定义进度圆圈CircleProgress控件  
 9.本地异常记录  
-# [iocore_2022.4.27.1.aar](https://github.com/RelinRan/IOCore/blob/master/iocore_2022.4.27.1.aar)
+# [iocore_2022.7.18.1.aar](https://github.com/RelinRan/IOCore/blob/master/iocore_2022.7.18.1.aar)
 # Maven
 1.build.grade
 ```
@@ -25,7 +25,7 @@ allprojects {
 2./app/build.grade
 ```
 dependencies {
-	implementation 'com.github.RelinRan:IOCore:2022.2022.4.27.1'
+	implementation 'com.github.RelinRan:IOCore:2022.2022.7.18.1'
 }
 ```
 # 初始化
@@ -117,6 +117,21 @@ TBSActivity.start(activity,file);
 override：是否覆盖原下载文件
 ```
 TBSActivity.start(activity,"http://xxx.xxx.xxx.png",override);
+```
+## 图片集合
+设置图片加载器  
+```
+TBS tbs = TBS.initialize(applicationContext,appId);
+tbs.imageLoader((target, url) -> {
+    //tatget：图片view, url是图片资源路径
+});
+```
+设置数据源  
+```
+List<String> urls = new Array<>();
+urls.add("xxxx");
+int position = 0;
+TBSActivity.start(activity, urls, position);
 ```
 # 下载文件
 ```
