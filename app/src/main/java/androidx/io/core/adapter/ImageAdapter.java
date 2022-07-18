@@ -22,7 +22,6 @@ public abstract class ImageAdapter<T> extends PagerAdapter implements ViewHolder
      * 数据
      */
     private List<T> data;
-    private List<T> source;
     /**
      * ItemView
      */
@@ -176,43 +175,13 @@ public abstract class ImageAdapter<T> extends PagerAdapter implements ViewHolder
     }
 
     /**
-     * @return 原数据（没有循环处理过的数据）
-     */
-    public List<T> getSource() {
-        return source;
-    }
-
-    /**
-     * 设置数据源（默认循环）
-     *
-     * @param data 数据源
-     */
-    public void setItems(List<T> data) {
-        setItems(data, true);
-    }
-
-    /**
      * 设置数据源
      *
      * @param data  轮播数据
-     * @param cycle 是否循环
      */
-    public void setItems(List<T> data, boolean cycle) {
-        this.source = data;
-        int count = data == null ? 0 : data.size();
-        if (count > 0 && cycle) {
-            data.add(0, data.get(count - 1));
-            data.add(data.get(1));
-        }
+    public void setItems(List<T> data) {
         this.data = data;
         notifyDataSetChanged();
-    }
-
-    /**
-     * @return 是否循环滑动
-     */
-    public boolean isCycle() {
-        return cycle;
     }
 
     /**
@@ -223,7 +192,7 @@ public abstract class ImageAdapter<T> extends PagerAdapter implements ViewHolder
     }
 
     /**
-     * @return 数据源（循环处理过的数据）。获取原数据{@link #getSource()},此方法的获取的原数据不适应当前数据的position
+     * @return 数据源
      */
     public List<T> getItems() {
         return data;
